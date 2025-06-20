@@ -1,7 +1,6 @@
 import { model, Schema } from 'mongoose';
 
 export const Category = model('Category', new Schema({
-  name: {String, required: true},
-  icon: {String, required: true},
+  name: { type: String, required: true },
+  icon: { type: String, required: true },
 }));
-

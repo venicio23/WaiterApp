@@ -1,15 +1,15 @@
 import { model, Schema } from 'mongoose';
 
 export const Products = model('Products', new Schema({
-  name: {String, required: true},
-  description: {String, required: true},
-  imagePath: {String, required: true},
-  price: {Number, required: true},
+  name: {type: String, required: true},
+  description: {type: String, required: true},
+  imagePath: {type: String, required: true},
+  price: {type: Number, required: true},
   ingredients: {
     required: true,
     type: [{
-      name: {String, required: true},
-      icon: {String, required: true},
+      name: {type: String, required: true},
+      icon: {type: String, required: true},
   }]},
   category: {
     type: Schema.Types.ObjectId,
