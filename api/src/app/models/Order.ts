@@ -2,7 +2,7 @@ import { model, Schema } from 'mongoose';
 
 export const Order = model("Order",
   new Schema({
-    table: { String, required: true },
+    table: { type: String, required: true },
     status: {
       type: String,
       enum: ["WAITING", "IN_PRODUCTION", "DONE"],
