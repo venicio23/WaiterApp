@@ -16,7 +16,11 @@ export function OrdersBoard({ icon, title, orders }: OrdersBoardProps) {
   function handleOpenOrder(order: Order) {
     setIsModalVisible(true);
     setSelectedOrder(order);
-    console.log(`Abrindo pedido da mesa ${order.table}`, order);
+  }
+
+  function handleCloseModal() {
+    setIsModalVisible(false);
+    setSelectedOrder(null);
   }
 
   return (
@@ -24,6 +28,7 @@ export function OrdersBoard({ icon, title, orders }: OrdersBoardProps) {
       <OrderModal
         isVisible={isModalVisible}
         order={selectedOrder}
+        onClose={handleCloseModal}
       />
 
       <header>
