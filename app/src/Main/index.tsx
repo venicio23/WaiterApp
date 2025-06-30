@@ -7,14 +7,20 @@ import {
 } from "./styles";
 
 import { Header } from "../components/Header";
+import { Categories } from "../components/Categories";
+import { Menu } from "../components/Menu";
 
 export function Main() {
   return (
     <>
       <Container>
         <Header />
-        <CategoriesContainer></CategoriesContainer>
-        <MenuContainer></MenuContainer>
+        <CategoriesContainer>
+          <Categories></Categories>
+        </CategoriesContainer>
+        <MenuContainer>
+          <Menu></Menu>
+        </MenuContainer>
       </Container>
       <Footer>
         <FooterContainer></FooterContainer>
