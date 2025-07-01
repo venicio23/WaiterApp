@@ -23,5 +23,5 @@ export const Footer = styled.View`
 `;
 
 export const FooterContainer = styled.View`
-
+  padding: 16px 24px;
 `;
