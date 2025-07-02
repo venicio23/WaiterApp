@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Overlay = styled.View`
+export const Overlay = styled.KeyboardAvoidingView`
   background: rgba(0, 0, 0, 0.6);
   flex: 1;
   align-items: stretch;
@@ -29,4 +29,5 @@ export const Input = styled.TextInput`
   border: 1px solid rgba(204, 204, 204, 0.5);
   border-radius: 8px;
   padding: 16px;
+  margin-bottom: 24px;
 `;
