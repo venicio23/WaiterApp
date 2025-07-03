@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { FlatList } from "react-native";
 
 import { Text } from "../Text";
 import { products } from "../../mocks/products";
 
 import {
-  Product,
+  ProductContainer,
   ProductImage,
   ProductDetails,
   Separator,
@@ -12,14 +13,30 @@ import {
 } from "./styles";
 
 import { PlusCircle } from "../Icons/PlusCircle";
+import { ProductModal } from "../ProductModal";
+import { Product } from "../../types/Product";
 
 export function Menu() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  function handleOpenModal(product: Product) {
+    setSelectedProduct(product);
+    setIsModalVisible(true);
+  }
+
   const price = Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
   });
 
   return (
+    <>
+    <ProductModal
+      visible={isModalVisible}
+      onClose={() => setIsModalVisible(false)}
+      product={selectedProduct}
+    />
     <FlatList
       data={products}
       style={{ marginTop: 32 }}
@@ -27,7 +44,7 @@ export function Menu() {
       keyExtractor={(product) => product._id}
       ItemSeparatorComponent={Separator}
       renderItem={({ item: product }) => (
-        <Product>
+        <ProductContainer onPress={() => handleOpenModal(product)}>
           <ProductImage
             source={{
               uri: `http://192.168.100.213:3000/uploads/${product.imagePath}`,
@@ -49,8 +66,9 @@ export function Menu() {
           <AddToCardButton>
             <PlusCircle />
           </AddToCardButton>
-        </Product>
+        </ProductContainer>
       )}
     />
+    </>
   );
 }
