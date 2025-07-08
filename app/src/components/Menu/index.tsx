@@ -15,8 +15,13 @@ import {
 import { PlusCircle } from "../Icons/PlusCircle";
 import { ProductModal } from "../ProductModal";
 import { Product } from "../../types/Product";
+import { price } from "../../utils/Price";
 
-export function Menu() {
+interface MenuProps {
+  onAddToCart: (product: Product) => void;
+}
+
+export function Menu({ onAddToCart }: MenuProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -25,50 +30,46 @@ export function Menu() {
     setIsModalVisible(true);
   }
 
-  const price = Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-
   return (
     <>
-    <ProductModal
-      visible={isModalVisible}
-      onClose={() => setIsModalVisible(false)}
-      product={selectedProduct}
-    />
-    <FlatList
-      data={products}
-      style={{ marginTop: 32 }}
-      contentContainerStyle={{ paddingHorizontal: 24 }}
-      keyExtractor={(product) => product._id}
-      ItemSeparatorComponent={Separator}
-      renderItem={({ item: product }) => (
-        <ProductContainer onPress={() => handleOpenModal(product)}>
-          <ProductImage
-            source={{
-              uri: `http://192.168.100.213:3000/uploads/${product.imagePath}`,
-            }}
-          />
+      <ProductModal
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        product={selectedProduct}
+        onAddToCart={onAddToCart}
+      />
+      <FlatList
+        data={products}
+        style={{ marginTop: 32 }}
+        contentContainerStyle={{ paddingHorizontal: 24 }}
+        keyExtractor={(product) => product._id}
+        ItemSeparatorComponent={Separator}
+        renderItem={({ item: product }) => (
+          <ProductContainer onPress={() => handleOpenModal(product)}>
+            <ProductImage
+              source={{
+                uri: `http://192.168.100.213:3000/uploads/${product.imagePath}`,
+              }}
+            />
 
-          <ProductDetails>
-            <Text weight={600}>{product.name}</Text>
-            <Text size={14} color="#666" style={{ marginVertical: 8 }}>
+            <ProductDetails>
+              <Text weight={600}>{product.name}</Text>
+              <Text size={14} color="#666" style={{ marginVertical: 8 }}>
                 {product.description.length > 60
-                ? product.description.slice(0, 60) + "..."
-                : product.description}
-            </Text>
-            <Text size={14} weight={600}>
-              {price.format(product.price)}
-            </Text>
-          </ProductDetails>
+                  ? product.description.slice(0, 60) + "..."
+                  : product.description}
+              </Text>
+              <Text size={14} weight={600}>
+                {price.format(product.price)}
+              </Text>
+            </ProductDetails>
 
-          <AddToCardButton>
-            <PlusCircle />
-          </AddToCardButton>
-        </ProductContainer>
-      )}
-    />
+            <AddToCardButton onPress={() => onAddToCart(product) }>
+              <PlusCircle />
+            </AddToCardButton>
+          </ProductContainer>
+        )}
+      />
     </>
   );
 }
