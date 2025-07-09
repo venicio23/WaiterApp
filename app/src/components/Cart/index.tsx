@@ -21,20 +21,40 @@ import { Button } from "../Button";
 import { Product } from "../../types/Product";
 import { useState } from "react";
 import { OrderConfirmedModal } from "../OrderConfirmedModal";
+import { api } from "../../utils/api";
 
 interface CartProps {
   cartItems: CartItem[];
   onAdd: (product: Product) => void;
   onDecrement?: (product: Product) => void;
   onConfirmOrder: () => void;
+  selectedTable: string;
 }
 
-export const Cart = ({ cartItems, onAdd, onDecrement, onConfirmOrder }: CartProps) => {
-  const [isLoading] = useState(false);
+export const Cart = ({ cartItems, onAdd, onDecrement, onConfirmOrder, selectedTable }: CartProps) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   function handleConfirmOrder() {
-    setIsModalVisible(true);
+    setIsLoading(true);
+
+    const payload = {
+      table: selectedTable,
+      products: cartItems.map((cartItem) => ({
+        product: cartItem.product._id,
+        quantity: cartItem.quantity,
+      })),
+    };
+
+    api.post("/orders", payload)
+      .then(() => {
+        setIsModalVisible(true);
+      })
+      .catch((error) => {
+        console.error("Error creating order:", error);
+      });
+
+    setIsLoading(false);
   }
 
   function handleOrderConfirmed() {

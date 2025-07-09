@@ -14,21 +14,54 @@ import { Categories } from "../components/Categories";
 import { Menu } from "../components/Menu";
 import { Button } from "../components/Button";
 import { TableModal } from "../components/TableModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Cart } from "../components/Cart";
 import { CartItem } from "../types/CartItem";
 import { Product } from "../types/Product";
 import { Text } from "../components/Text";
 
-import { products as mock } from "../mocks/products";
 import { Empty } from "../components/Icons/Empty";
+import { Category } from "../types/Category";
+import { api } from "../utils/api";
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
   const [selectedTable, setSelectedTable] = useState("");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isLoading] = useState(false);
-  const [products] = useState<Product[]>(mock);
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(false);
+
+  useEffect(() => {
+    Promise.all([
+      api.get("/products"),
+      api.get("/categories"),
+    ])
+      .then(([productsResponse, categoriesResponse]) => {
+        setProducts(productsResponse.data);
+        setCategories(categoriesResponse.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  async function handleSelectCategory(categoryId: string) {
+    setIsLoadingProducts(true);
+    const route = !categoryId
+      ? "/products"
+      : `/categories/${categoryId}/products`;
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
+
+    const { data } = await api.get(route);
+    setProducts(data);
+    setIsLoadingProducts(false);
+  }
 
   function handleSaveTable(table: string) {
     setSelectedTable(table);
@@ -90,20 +123,31 @@ export function Main() {
         {!isLoading ? (
           <>
             <CategoriesContainer>
-              <Categories />
+              <Categories
+                onSelectCategory={handleSelectCategory}
+                categories={categories}
+              />
             </CategoriesContainer>
 
-            {products.length > 0 ? (
-              <MenuContainer>
-                <Menu onAddToCart={handleAddToCart} products={products} />
-              </MenuContainer>
-            ) : (
+            {isLoadingProducts ? (
               <CenteredContainer>
-                <Empty />
-                <Text color="#666" style={{ marginTop: 24 }}>
-                  Nenhum produto foi encontrado!
-                </Text>
+                <ActivityIndicator color="#D73035" size="large" />
               </CenteredContainer>
+            ) : (
+              <>
+                {products.length > 0 ? (
+                  <MenuContainer>
+                    <Menu onAddToCart={handleAddToCart} products={products} />
+                  </MenuContainer>
+                ) : (
+                  <CenteredContainer>
+                    <Empty />
+                    <Text color="#666" style={{ marginTop: 24 }}>
+                      Nenhum produto foi encontrado!
+                    </Text>
+                  </CenteredContainer>
+                )}
+              </>
             )}
           </>
         ) : (
@@ -129,6 +173,7 @@ export function Main() {
               onDecrement={handleDecrementCartItem}
               cartItems={cartItems}
               onConfirmOrder={handleResetOrder}
+              selectedTable={selectedTable}
             />
           )}
         </FooterContainer>
