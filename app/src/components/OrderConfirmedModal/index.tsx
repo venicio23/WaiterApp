@@ -26,8 +26,8 @@ export const OrderConfirmedModal = ({
         <Text style={{marginTop: 12}} size={20} weight="600" color="#fff">Pedido confirmado</Text>
         <Text style={{marginTop: 4}} opacity={0.9} color="#fff">O pedido já entrou na fila de produção!</Text>
 
-        <OkButton>
-          <Text color="#D73035" weight="600" onPress={onClose}>OK</Text>
+        <OkButton onPress={onClose}>
+          <Text color="#D73035" weight="600">OK</Text>
         </OkButton>
       </Container>
     </Modal>

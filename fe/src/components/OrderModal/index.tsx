@@ -8,27 +8,37 @@ interface OrderModalProps {
   isVisible: boolean;
   order: Order | null;
   onClose?: () => void;
+  onCancelOrder?: () => void;
+  onUpdateOrderStatus?: (status: Order['status']) => void;
+  isLoading?: boolean;
 }
 
-export function OrderModal({ isVisible, order, onClose }: OrderModalProps) {
+export function OrderModal({
+  isVisible,
+  order,
+  onClose,
+  onCancelOrder,
+  onUpdateOrderStatus,
+  isLoading,
+}: OrderModalProps) {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape' && isVisible) {
+      if (event.key === "Escape" && isVisible) {
         onClose?.();
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isVisible, onClose]);
 
   if (!isVisible || !order) return null;
 
-  const price = Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
+  const price = Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
   });
 
   const total = order.products.reduce((acc, { product, quantity }) => {
@@ -68,7 +78,7 @@ export function OrderModal({ isVisible, order, onClose }: OrderModalProps) {
             {order.products.map(({ _id, product, quantity }) => (
               <div className="item" key={_id}>
                 <img
-                  src={`http://localhost:3000/uploads/${product.imagePath}`}
+                  src={`http://192.168.17.146:3000/uploads/${product.imagePath}`}
                   alt={product.name}
                   width={64}
                   height={30}
@@ -90,12 +100,23 @@ export function OrderModal({ isVisible, order, onClose }: OrderModalProps) {
         </OrderDetails>
 
         <Actions>
-          <button type="button" className="primary">
-            <span>⏳</span>
-            <strong>Iniciar Produção</strong>
-          </button>
+          {order.status !== "DONE" && (
+            <button
+              onClick={() => onUpdateOrderStatus?.(order?.status)}
+              disabled={isLoading}
+              type="button"
+              className="primary"
+            >
+              <strong>{order.status === "WAITING" ? "Iniciar Produção" : "Finalizar Pedido"}</strong>
+            </button>
+          )}
 
-          <button type="button" className="secondary">
+          <button
+            disabled={isLoading}
+            onClick={onCancelOrder}
+            type="button"
+            className="secondary"
+          >
             <strong>Cancelar Pedido</strong>
           </button>
         </Actions>

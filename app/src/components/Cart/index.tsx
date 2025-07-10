@@ -79,7 +79,8 @@ export const Cart = ({ cartItems, onAdd, onDecrement, onConfirmOrder, selectedTa
             <ProductContainer>
               <Image
                 source={{
-                  uri: `http://192.168.100.213:3000/uploads/${cartItem.product.imagePath}`,
+                  // uri: `http://192.168.100.213:3000/uploads/${cartItem.product.imagePath}`,
+                  uri: `http://192.168.17.146:3000/uploads/${cartItem.product.imagePath}`,
                 }}
               />
               <QuantityContainer>

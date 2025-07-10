@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { Order } from "../../models/Order";
 import { validateRequiredFields } from "../../../utils/validateRequiredFields";
+import { io } from "../../..";
 
 export async function createOrder(req: Request, res: Response) {
   try {
@@ -15,8 +16,10 @@ export async function createOrder(req: Request, res: Response) {
     }
 
     const order = await Order.create({ table, products });
+    const orderDetails = await Order.findById(order._id).populate("products.product");
 
-    res.status(201).json(order);
+    io.emit("newOrder", orderDetails);
+    res.status(201).json(orderDetails);
   } catch (error) {
     console.error("Error creating product:", error);
     res.status(500).json({ error: "Internal Server Error" });
