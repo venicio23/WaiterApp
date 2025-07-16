@@ -51,6 +51,11 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background: #fafafa;
     color: #333;
+    height: 100vh;
+
+    #root {
+      height: 100%;
+    }
   }
 
   button {

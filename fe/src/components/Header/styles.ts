@@ -1,31 +1,38 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  background: #D73035;
+  font-weight: 500;
+  padding: 1.25rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Content = styled.div`
-  width: 100%;
-  max-width: 1216px;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 
-  .page-details {
-    color: #FFF;
+  .header-content {
+    display: flex;
+    flex-direction: column;
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 6px;
-    }
 
-    h2 {
-      font-size: 16px;
-      font-weight: 400;
-      opacity: 0.9;
+    .header-title {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      align-items: center;
+
+      .icon {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+
+      .header-title-text {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .header-subtitle {
+        font-size: 0.875rem;
+        color: #666;
+      }
+
     }
   }
 `;

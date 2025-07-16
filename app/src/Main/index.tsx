@@ -45,6 +45,7 @@ export function Main() {
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setIsLoading(false);
       });
   }, []);
 
@@ -53,10 +54,6 @@ export function Main() {
     const route = !categoryId
       ? "/products"
       : `/categories/${categoryId}/products`;
-
-    await new Promise((resolve) => {
-      setTimeout(resolve, 500);
-    });
 
     const { data } = await api.get(route);
     setProducts(data);

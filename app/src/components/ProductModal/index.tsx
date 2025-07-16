@@ -19,6 +19,7 @@ import {
 
 import { Close } from "../Icons/Close";
 import { price } from "../../utils/Price";
+import { api } from "../../utils/api";
 
 interface ProductModalProps {
   visible: boolean;
@@ -45,8 +46,7 @@ export function ProductModal({ visible, onClose, product, onAddToCart }: Product
     >
       <Image
         source={{
-          // uri: `http://192.168.100.213:3000/uploads/${product.imagePath}`,
-          uri: `http://192.168.17.146:3000/uploads/${product.imagePath}`,
+          uri: `${api.defaults.baseURL}/uploads/${product.imagePath}`,
         }}
       >
         <CloseButton onPress={onClose}>
