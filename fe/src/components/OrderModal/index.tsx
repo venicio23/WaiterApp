@@ -81,8 +81,8 @@ export function OrderModal({
                 <img
                   src={`${api.defaults.baseURL}/uploads/${product.imagePath}`}
                   alt={product.name}
-                  width={64}
-                  height={30}
+                  width={48}
+                  height={40}
                 />
 
                 <span className="quantity">{quantity}x</span>
@@ -101,6 +101,26 @@ export function OrderModal({
         </OrderDetails>
 
         <Actions>
+          { order.status === "DONE" ? (
+            <button
+              disabled={isLoading}
+              onClick={onCancelOrder}
+              type="button"
+              className="secondary"
+            >
+              <strong>Arquivar Pedido</strong>
+            </button>
+          ) : (
+            <button
+              onClick={onCancelOrder}
+              disabled={isLoading}
+              type="button"
+              className="secondary"
+            >
+              <strong>Cancelar Pedido</strong>
+            </button>
+          )}
+
           {order.status !== "DONE" && (
             <button
               onClick={() => onUpdateOrderStatus?.(order?.status)}
@@ -108,18 +128,13 @@ export function OrderModal({
               type="button"
               className="primary"
             >
-              <strong>{order.status === "WAITING" ? "Iniciar Produção" : "Finalizar Pedido"}</strong>
+              <strong>
+                {order.status === "WAITING"
+                  ? "Iniciar Produção"
+                  : "Finalizar Pedido"}
+              </strong>
             </button>
           )}
-
-          <button
-            disabled={isLoading}
-            onClick={onCancelOrder}
-            type="button"
-            className="secondary"
-          >
-            <strong>Cancelar Pedido</strong>
-          </button>
         </Actions>
       </ModalBody>
     </Overlay>

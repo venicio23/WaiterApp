@@ -35,4 +35,28 @@ export const Container = styled.header`
 
     }
   }
+
+  .right-action {
+    margin: auto 0;
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: #D73035;
+      font-weight: 500;
+      padding: 0.5rem;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: #d730361a;
+      }
+
+      img {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
 `;

@@ -79,6 +79,7 @@ export const OrderDetails = styled.div`
 
       img {
         border-radius: 6px;
+        object-fit: cover;
       }
 
       .quantity {
@@ -121,7 +122,8 @@ export const OrderDetails = styled.div`
 
 export const Actions = styled.footer`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 32px;
 
   button:disabled {
@@ -130,11 +132,11 @@ export const Actions = styled.footer`
   }
 
   .primary {
-    background: #333;
-    border-radius: 48px;
+    background: #d73035;
+    border-radius: 8px;
     border: 0;
     color: #fff;
-    padding: 12px 24px;
+    padding: 12px 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,11 +144,15 @@ export const Actions = styled.footer`
   }
 
   .secondary {
-    padding: 16px 24px;
+    padding: 12px 36px;
     color: #d73035;
     font-weight: 500;
     border: 0;
     background: transparent;
-    margin-top: 12px;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #d730361a;
+    }
   }
-`
+`;

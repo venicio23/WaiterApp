@@ -25,13 +25,12 @@ export function Header({ title, subtitle, icon, rightAction }: HeaderProps) {
         <span className="header-subtitle">{subtitle}</span>
       </div>
       {rightAction && (
-        <div className="my-auto">
+        <div className="right-action">
           <a
-            className="flex gap-2 text-purple-normal text-sm"
             href={rightAction.href}
             onClick={rightAction.onClick}
           >
-            {rightAction.icon && <img className="w-5" src={rightAction.icon} alt={rightAction.text} />}
+            {rightAction.icon && <img src={rightAction.icon} alt={rightAction.text} />}
             {rightAction.text}
           </a>
         </div>

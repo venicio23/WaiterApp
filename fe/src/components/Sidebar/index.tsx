@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 
-import logo from "../../assets/icons/logo.svg";
-
-import HomeIcon from "../../assets/icons/home.svg";
-import OrderIcon from "../../assets/icons/home.svg";
-import MenuIcon from "../../assets/icons/home.svg";
-import UsersIcon from "../../assets/icons/home.svg";
-import ProfileIcon from "../../assets/icons/home.svg";
-import LogoffIcon from "../../assets/icons/home.svg";
 import { Container } from "./styles";
+
+import logo from "../../assets/icons/logo.svg";
+import HomeIcon from "../../assets/icons/home_side.svg";
+import OrderIcon from "../../assets/icons/order.svg";
+import MenuIcon from "../../assets/icons/menu.svg";
+import UsersIcon from "../../assets/icons/users.svg";
+import ProfileIcon from "../../assets/icons/profile.svg";
+import LogoffIcon from "../../assets/icons/log-off.svg";
 
 export function Sidebar() {
 
@@ -37,9 +37,14 @@ export function Sidebar() {
             <Link
               key={to}
               to={to}
+              className={`${
+                location.pathname === to
+                  ? "text-active"
+                  : "hover:text-active"
+              }`}
             >
-              <img src={Icon} className="w-6" aria-label={alt} alt={alt} />
-              <span className="font-medium text-xs">{label}</span>
+              <img src={Icon} aria-label={alt} alt={alt} />
+              <span>{label}</span>
             </Link>
           ))}
         </div>
@@ -48,14 +53,14 @@ export function Sidebar() {
             <Link
               key={to}
               to={to}
-              className={`flex flex-col w-14 justify-center items-center gap-2 ${
+              className={`${
                 location.pathname === to
-                  ? "text-purple-normal"
-                  : "text-gray-1 hover:text-purple-normal"
+                  ? "text-active"
+                  : "hover:text-active"
               }`}
             >
-              <img src={Icon} className="w-6" aria-label={alt} alt={alt} />
-              <span className="font-medium text-xs">{label}</span>
+              <img src={Icon} aria-label={alt} alt={alt} />
+              <span>{label}</span>
             </Link>
           ))}
         </div>
