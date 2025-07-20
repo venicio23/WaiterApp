@@ -5,6 +5,7 @@
 ## Aplicativo Full Stack para gestão de pedidos em restaurantes, com foco em garçons, administração e clientes.
 Desenvolvido como projeto prático no curso Full Stack da JStack, utilizando Node.js, React, React Native e Styled Components.
 
+https://github.com/user-attachments/assets/3601d5fa-6f46-4283-adbe-b0ce0598b61d
 
 ## 📱 Sobre o Projeto
 O WaiterApp é uma aplicação desenvolvida para otimizar o atendimento em restaurantes. Possui:
@@ -30,6 +31,18 @@ O projeto foi desenvolvido com as seguintes tecnologias:
 /app           -> Aplicativo mobile com React Native
 ```
 ## 📸 Imagens 
+
+<p align="center">
+  <img width="196" height="426" alt="detalhes_item" src="https://github.com/user-attachments/assets/0d7e8e9e-4aaf-48ad-abc7-068b5fcb4d7f" />
+  <img width="196" height="426" alt="mob_home" src="https://github.com/user-attachments/assets/d442ff3d-1b4c-46d6-893b-0c7a8974a722" />
+</p>
+
+<p align="center">
+  <img width="720" height="415" alt="web_home_2" src="https://github.com/user-attachments/assets/91726f43-fac1-4d4f-817e-9ea1bb19c5a1" />
+  <img width="720" height="415" alt="web_home_1" src="https://github.com/user-attachments/assets/31a3c23e-26e8-4ea8-b37a-3cd52599f61d" />
+</p>
+
+
 
 ## 👨‍💻 Autor
 Desenvolvido por: 
