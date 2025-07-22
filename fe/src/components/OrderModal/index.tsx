@@ -3,7 +3,7 @@ import { Overlay, ModalBody, OrderDetails, Actions } from './styles';
 import CloseIcon from '../../assets/images/close-icon.svg'
 import type { Order } from '../../types/Order';
 import { useEffect } from 'react';
-import { api } from '../../../utils/api';
+import { api } from '../../utils/api';
 
 interface OrderModalProps {
   isVisible: boolean;
