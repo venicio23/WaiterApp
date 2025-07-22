@@ -6,12 +6,13 @@ import mongoose from 'mongoose';
 import { Server } from 'socket.io';
 
 import { router } from './router';
+import { setupSwagger } from './swagger';
 
 const app = express();
 const server = http.createServer(app);
 export const io = new Server(server);
 
-mongoose.connect("mongodb://localhost:27017")
+mongoose.connect("mongodb://localhost:27017/waiterapp")
   .then(() => {
     const PORT = process.env.PORT || 3000;
 
@@ -26,8 +27,12 @@ mongoose.connect("mongodb://localhost:27017")
     app.use(express.json());
     app.use(router);
 
+    // Setup Swagger documentation
+    setupSwagger(app);
+
     server.listen(PORT, () => {
-      console.log(`Server is running on  http://localhost:${PORT}/`);
+      console.log(`🚀 Server is running on http://localhost:${PORT}/`);
+      console.log(`📚 API Documentation available at http://localhost:${PORT}/api-docs`);
     });
   })
   .catch((err) => {
